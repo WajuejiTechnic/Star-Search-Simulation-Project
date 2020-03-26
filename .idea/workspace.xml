@@ -8,6 +8,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CS6310_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CS6310_project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/star_search_source/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/star_search_source/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/star_search_source/Drone.java" beforeDir="false" afterPath="$PROJECT_DIR$/star_search_source/Drone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/star_search_source/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/star_search_source/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/star_search_source/Simulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/star_search_source/Simulator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/star_search_source/SystemMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/star_search_source/SystemMap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
