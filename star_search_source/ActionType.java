@@ -1,3 +1,3 @@
 public enum ActionType {
-	STEER, THRUST, SCAN, PASS;
+	STEER, THRUST, SCAN, PASS, RECHARGE;
 }

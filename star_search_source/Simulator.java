@@ -1,11 +1,20 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Simulator {
 	private int maxNumOfTurns;
 	private SystemMap systemMap;
 	private Controller controller;
-	
+
+	private static HashMap<ActionType, Integer> FUEL_COST = new HashMap<ActionType, Integer>(){{
+		put(ActionType.STEER, 1);
+		put(ActionType.THRUST, 1);
+		put(ActionType.SCAN, 0);
+		put(ActionType.PASS, 0);
+		put(ActionType.RECHARGE, 0);
+	}};
+
 	public Simulator(String testFileName) throws Exception{
 		this.systemMap = new SystemMap(testFileName);
 		this.maxNumOfTurns = this.systemMap.getTurnLimit();
@@ -24,8 +33,14 @@ public class Simulator {
 	}
 
 	private String checkSteer(Direction direction, Drone drone) {
-    	drone.setDirection(direction);
-    	return "ok";
+		if(drone.getFuel() >= FUEL_COST.get(ActionType.STEER)) {
+			drone.setDirection(direction);
+			drone.costFuel(FUEL_COST.get(ActionType.STEER));
+			return "ok";
+		}
+		else{
+			return "Not enough energy. Recharge first";
+		}
 	}
 	
 	// "NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST"
@@ -58,6 +73,9 @@ public class Simulator {
 		}
 		
 		for(int i = 0; i < steps; i++) {
+			if(drone.getFuel() < FUEL_COST.get(ActionType.THRUST)) return "Not enough energy. Recharge first";
+
+
 			int x = drone.getX();
 			int y = drone.getY();
 			Direction direction = drone.getDirection();
@@ -85,6 +103,9 @@ public class Simulator {
 					drone.setCrashed(true);
 				}
 				else { // STAR OR EMPTY
+					//make the move and cost fuel
+					drone.costFuel(FUEL_COST.get(ActionType.THRUST));
+
 					newSqr.setState(State.EXPLORED);
 					newSqr.setName(SquareType.DRONE);
 					drone.setX(nx);
@@ -100,6 +121,9 @@ public class Simulator {
 	}
 	
 	private String checkScan(Drone drone){
+		if(drone.getFuel() < FUEL_COST.get(ActionType.SCAN)) return "Not enough energy. Recharge first";
+		drone.costFuel(FUEL_COST.get(ActionType.SCAN));
+
 		List<String> result = new ArrayList<>();
 		int x = drone.getX();
 		int y = drone.getY();
@@ -146,6 +170,11 @@ public class Simulator {
 	private String checkPass(){
 		return "ok";
 	}
+
+	private String checkRecharge(Drone drone){
+		drone.setFuel(10); //hard code recharge 10 units of fuel. Need improvement
+		return "ok";
+	}
 	
 	// validate action for a specific drone
 	public String validateAction(Drone drone, ActionPair actionPair) {
@@ -167,6 +196,9 @@ public class Simulator {
 			}
 			if(action == ActionType.PASS) {
 				return this.checkPass();
+			}
+			if(action == ActionType.RECHARGE) {
+				return this.checkRecharge(drone);
 			}
 			return "action_not_recognized";
 		}

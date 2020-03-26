@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2ff35d93-e037-4fbe-a9fd-0ab65b6e1fd7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/star_search_source/ActionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/star_search_source/ActionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/star_search_source/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/star_search_source/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/star_search_source/Drone.java" beforeDir="false" afterPath="$PROJECT_DIR$/star_search_source/Drone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/star_search_source/Simulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/star_search_source/Simulator.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="ProjectId" id="1ZbMlBJacC291rnl1W19AJGkMqr" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../.." />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="CS6310_project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2ff35d93-e037-4fbe-a9fd-0ab65b6e1fd7" name="Default Changelist" comment="" />
+      <created>1585103488355</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585103488355</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="673" y="181" width="1038" height="812" key="CommitChangelistDialog2" timestamp="1585186315775">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="673" y="181" width="1038" height="812" key="CommitChangelistDialog2/0.0.1920.1040/1920.58.1920.1040@0.0.1920.1040" timestamp="1585186315775" />
+    <state x="170" y="77" key="DiffContextDialog" timestamp="1585183741777">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="170" y="77" key="DiffContextDialog/0.0.1920.1040/1920.58.1920.1040@0.0.1920.1040" timestamp="1585183741777" />
+    <state width="1877" height="103" key="GridCell.Tab.0.bottom" timestamp="1585103670928">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="103" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.58.1920.1040@0.0.1920.1040" timestamp="1585103670928" />
+    <state width="1877" height="103" key="GridCell.Tab.0.center" timestamp="1585103670928">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="103" key="GridCell.Tab.0.center/0.0.1920.1040/1920.58.1920.1040@0.0.1920.1040" timestamp="1585103670928" />
+    <state width="1877" height="103" key="GridCell.Tab.0.left" timestamp="1585103670928">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="103" key="GridCell.Tab.0.left/0.0.1920.1040/1920.58.1920.1040@0.0.1920.1040" timestamp="1585103670928" />
+    <state width="1877" height="103" key="GridCell.Tab.0.right" timestamp="1585103670928">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="103" key="GridCell.Tab.0.right/0.0.1920.1040/1920.58.1920.1040@0.0.1920.1040" timestamp="1585103670928" />
+    <state x="912" y="299" key="RollbackChangesDialog" timestamp="1585183753933">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="912" y="299" key="RollbackChangesDialog/0.0.1920.1040/1920.58.1920.1040@0.0.1920.1040" timestamp="1585183753933" />
+    <state x="461" y="163" key="SettingsEditor" timestamp="1585103804230">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="163" key="SettingsEditor/0.0.1920.1040/1920.58.1920.1040@0.0.1920.1040" timestamp="1585103804230" />
+  </component>
+</project>

@@ -55,7 +55,7 @@ public class Controller {
 	private ActionPair selectRandomAction() {
 		Random rd = new Random();
 		this.action = ActionType.values()[rd.nextInt(ActionType.values().length)];
-		if(this.action == ActionType.THRUST){	
+		if(this.action == ActionType.THRUST){
 			this.param = rd.nextInt(3) + 1;
 		}
 		else if (this.action == ActionType.STEER){
@@ -243,6 +243,9 @@ public class Controller {
 	}
 		
 	private ActionPair selectBestAction(Drone drone, int turns){
+		//if fuel less than 3, recharge
+		if(drone.getFuel() < 3) return new ActionPair(ActionType.RECHARGE, null);
+
 		int cx = drone.getX();
 		int cy = drone.getY();
 		Direction direction = drone.getDirection();

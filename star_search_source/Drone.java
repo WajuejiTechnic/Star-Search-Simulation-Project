@@ -6,6 +6,8 @@ public class Drone {
 	private Direction direction;
 	private int strategy;
 	private Boolean crashed;
+	private int fuel;
+	private int maxFuel;
 	
 	public void createDrone(int id, int x, int y, Direction direction, int strategy){
 		this.id = id;
@@ -14,6 +16,8 @@ public class Drone {
 		this.direction = direction;
 		this.strategy = strategy;
 		this.crashed = false;
+		this.fuel = 20; //default fuel as 20
+		this.maxFuel = 30; //default maxFuel as 20
 	}
 
 	public int getId() {
@@ -54,5 +58,19 @@ public class Drone {
 
 	public void setCrashed(Boolean crashed) {
 		this.crashed = crashed;
+	}
+
+	//fuel related functions
+	public int getFuel() {
+		return this.fuel;
+	}
+
+	public void setFuel(int fuel) {
+		this.fuel = fuel;
+		if(this.fuel > maxFuel) this.fuel = maxFuel; //maximum fuel allowed is 30
+	}
+
+	public void costFuel(int fuel) {
+		this.fuel -= fuel;
 	}
 }
