@@ -10,7 +10,7 @@ public class Simulator {
 	private static HashMap<ActionType, Integer> FUEL_COST = new HashMap<ActionType, Integer>(){{
 		put(ActionType.STEER, 1);
 		put(ActionType.THRUST, 1);
-		put(ActionType.SCAN, 0);
+		put(ActionType.SCAN, 1);
 		put(ActionType.PASS, 0);
 		put(ActionType.RECHARGE, 0);
 	}};
@@ -172,7 +172,9 @@ public class Simulator {
 	}
 
 	private String checkRecharge(Drone drone){
-		drone.setFuel(10); //hard code recharge 10 units of fuel. Need improvement
+		if(drone.fuelFull()) return "Fuel already full";
+
+		drone.addFuel(this.systemMap.getRechargeFuel());
 		return "ok";
 	}
 	
@@ -306,7 +308,7 @@ public class Simulator {
         List<Drone> activeDrones = this.systemMap.getAllActiveDrones();
         for(Drone drone: activeDrones) {
             System.out.println("dir d" + String.valueOf(drone.getId()) + ": " 
-            		+ drone.getDirection().toString());
+            		+ drone.getDirection().toString() + " with fuel " + String.valueOf(drone.getFuel()));
         }
         System.out.println("");
     }

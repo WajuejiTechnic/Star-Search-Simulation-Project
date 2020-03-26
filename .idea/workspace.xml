@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2ff35d93-e037-4fbe-a9fd-0ab65b6e1fd7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/star_search_source/ActionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/star_search_source/ActionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/star_search_source/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/star_search_source/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/star_search_source/Drone.java" beforeDir="false" afterPath="$PROJECT_DIR$/star_search_source/Drone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/star_search_source/Simulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/star_search_source/Simulator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/star_search.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/star_search.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS6310_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CS6310_project.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,10 +68,10 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="673" y="181" width="1038" height="812" key="CommitChangelistDialog2" timestamp="1585186315775">
+    <state x="673" y="181" width="1038" height="812" key="CommitChangelistDialog2" timestamp="1585248825616">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="673" y="181" width="1038" height="812" key="CommitChangelistDialog2/0.0.1920.1040/1920.58.1920.1040@0.0.1920.1040" timestamp="1585186315775" />
+    <state x="673" y="181" width="1038" height="812" key="CommitChangelistDialog2/0.0.1920.1040/1920.58.1920.1040@0.0.1920.1040" timestamp="1585248825616" />
     <state x="170" y="77" key="DiffContextDialog" timestamp="1585183741777">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

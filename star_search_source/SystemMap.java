@@ -11,6 +11,10 @@ public class SystemMap {
 	private Square[][] square;
 	private Drone[] drone;
 	private int turnLimit;
+
+	private int initialFuel;
+	private int maxFuel;
+	private int rechargeFuel;
 	
 	public SystemMap(String testFileName) throws Exception{
 		final String DELIMITER = ",";
@@ -52,6 +56,17 @@ public class SystemMap {
 	        }
 	        */
 	        this.drone = new Drone[this.numOfDrones];
+
+			//read in fuel configuration
+			tokens = takeCommand.nextLine().split(DELIMITER);
+			this.initialFuel = Integer.parseInt(tokens[0]);
+
+			tokens = takeCommand.nextLine().split(DELIMITER);
+			this.rechargeFuel = Integer.parseInt(tokens[0]);
+
+			tokens = takeCommand.nextLine().split(DELIMITER);
+			this.maxFuel = Integer.parseInt(tokens[0]);
+
 	        for (int k = 0; k < this.numOfDrones; k++) {
 	            tokens = takeCommand.nextLine().split(DELIMITER);
 	            int i = Integer.parseInt(tokens[0]);
@@ -65,7 +80,7 @@ public class SystemMap {
 	            */
 	            int strategy = Integer.parseInt(tokens[3]);
 	            this.drone[k] = new Drone();
-	            this.drone[k].createDrone(k, i, j, direction, strategy);
+	            this.drone[k].createDrone(k, i, j, direction, strategy, this.initialFuel, this.maxFuel);
 	            this.square[i][j].setName(SquareType.DRONE);
 	            this.square[i][j].setState(State.EXPLORED);
 	            //System.out.println("Drone?"  + square[i][j].getState());
@@ -97,6 +112,8 @@ public class SystemMap {
 	        */
 	        
 	        //this.print_map();
+
+
         }   
 	}
 	
@@ -230,5 +247,9 @@ public class SystemMap {
 
 	public int getTurnLimit() {
 		return this.turnLimit;
+	}
+
+	public int getRechargeFuel() {
+		return this.rechargeFuel;
 	}
 }

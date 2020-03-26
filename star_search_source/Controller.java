@@ -26,7 +26,7 @@ public class Controller {
 			if(drone.getCrashed()) continue;
 			this.actionPair = this.selectAction(drone, turns);
 			String response = this.simulator.validateAction(drone, this.actionPair);
-			//if (showState) this.simulator.renderRegion();
+			if (showState) this.simulator.renderRegion();
 			this.simulator.displayActionAndResponses(drone.getId(), this.actionPair, response);
 			//System.out.println("print map .....");
 			//this.simulator.getSystemMap().print_map();

@@ -9,15 +9,15 @@ public class Drone {
 	private int fuel;
 	private int maxFuel;
 	
-	public void createDrone(int id, int x, int y, Direction direction, int strategy){
+	public void createDrone(int id, int x, int y, Direction direction, int strategy, int initialFuel, int maxFuel){
 		this.id = id;
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
 		this.strategy = strategy;
 		this.crashed = false;
-		this.fuel = 20; //default fuel as 20
-		this.maxFuel = 30; //default maxFuel as 20
+		this.fuel = initialFuel;
+		this.maxFuel = maxFuel;
 	}
 
 	public int getId() {
@@ -67,10 +67,23 @@ public class Drone {
 
 	public void setFuel(int fuel) {
 		this.fuel = fuel;
-		if(this.fuel > maxFuel) this.fuel = maxFuel; //maximum fuel allowed is 30
+		if(this.fuel > this.maxFuel) this.fuel = this.maxFuel; //maximum fuel allowed is 30
+	}
+
+	public void addFuel(int fuel) {
+		this.fuel += fuel;
+		if(this.fuel > this.maxFuel) this.fuel = this.maxFuel; //maximum fuel allowed is 30
 	}
 
 	public void costFuel(int fuel) {
 		this.fuel -= fuel;
+	}
+
+	public Boolean fuelFull(){
+		if (this.fuel == this.maxFuel){
+			return true;
+		}
+		else
+			return false;
 	}
 }
