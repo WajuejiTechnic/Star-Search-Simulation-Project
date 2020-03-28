@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2ff35d93-e037-4fbe-a9fd-0ab65b6e1fd7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/SimManager.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +65,10 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+    <state x="2334" y="234" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585341177937">
+      <screen x="1920" y="58" width="1920" height="1040" />
+    </state>
+    <state x="2334" y="234" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.58.1920.1040@1920.58.1920.1040" timestamp="1585341177937" />
     <state x="673" y="181" width="1038" height="812" key="CommitChangelistDialog2" timestamp="1585248825616">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

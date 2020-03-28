@@ -39,7 +39,7 @@ public class Simulator {
 			return "ok";
 		}
 		else{
-			return "Not enough energy. Recharge first";
+			return "not_enough_energy_recharge_first";
 		}
 	}
 	
@@ -73,7 +73,7 @@ public class Simulator {
 		}
 		
 		for(int i = 0; i < steps; i++) {
-			if(drone.getFuel() < FUEL_COST.get(ActionType.THRUST)) return "Not enough energy. Recharge first";
+			if(drone.getFuel() < FUEL_COST.get(ActionType.THRUST)) return "not_enough_energy_recharge_first";
 
 
 			int x = drone.getX();
@@ -121,7 +121,7 @@ public class Simulator {
 	}
 	
 	private String checkScan(Drone drone){
-		if(drone.getFuel() < FUEL_COST.get(ActionType.SCAN)) return "Not enough energy. Recharge first";
+		if(drone.getFuel() < FUEL_COST.get(ActionType.SCAN)) return "not_enough_energy_recharge_first";
 		drone.costFuel(FUEL_COST.get(ActionType.SCAN));
 
 		List<String> result = new ArrayList<>();
@@ -172,7 +172,7 @@ public class Simulator {
 	}
 
 	private String checkRecharge(Drone drone){
-		if(drone.fuelFull()) return "Fuel already full";
+		if(drone.fuelFull()) return "fuel_already_full";
 
 		drone.addFuel(this.systemMap.getRechargeFuel());
 		return "ok";
