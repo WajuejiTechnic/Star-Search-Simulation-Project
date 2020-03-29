@@ -1,0 +1,89 @@
+* {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  background-size: cover;
+  background: no-repeat center #eb9f12bd;
+  color: #fff;
+}
+
+.simulator {
+  width: 120vmin;
+  height: 90vmin;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.outputs, .reports{
+  font-size: 0.75rem;
+  background: rgba(0, 0, 0, 0.618);
+  padding: 0.5rem 0.618rem;
+  color: #ffffff;
+  width: 30vmin;
+  height: 90vmin;
+}
+
+.reports {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  z-index: 9000;
+}
+
+.outputs {
+  position: fixed;
+  top: 0%;
+  right: 0%;
+  z-index: 9000;
+  /*width: 11rem;*/
+}
+
+.square {
+  display: flex;
+  background: #fff;
+  border: 1px solid #414c69;
+  float: left;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.nextline{
+  clear: both;
+  content: ""
+}
+
+.buttons {
+  position: fixed;
+  bottom: 0%;
+  width: 120vmin;
+  height: 10vmin;
+}
+
+.mleft {
+  margin-left: 30px;
+}
+
+.mtop{
+  margin-top: 20px;
+}
