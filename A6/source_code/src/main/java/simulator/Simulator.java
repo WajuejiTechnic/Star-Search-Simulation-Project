@@ -23,14 +23,23 @@ public class Simulator {
 		this.controller = new Controller(this);
 		//System.out.println("maxNumOfTurns = " + this.maxNumOfTurns);
 	}
+
+	public Boolean terminate(int turns){
+		if(this.isGameOver() || turns == this.maxNumOfTurns) {
+			this.displayReport(turns);
+			return true;
+		}
+		return false;
+	}
 	
 	public void startGame(Boolean showState) throws Exception{
 		for(int turns = 1; turns <= this.maxNumOfTurns; turns++) {
 			this.controller.startTurn(turns, showState);
-			if(this.isGameOver() || turns == this.maxNumOfTurns) {
+			if (terminate(turns)) break;
+			/*if(this.isGameOver() || turns == this.maxNumOfTurns) {
 				this.displayReport(turns);
 				break;
-			}
+			}*/
 		}
 	}
 
