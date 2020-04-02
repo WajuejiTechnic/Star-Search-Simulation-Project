@@ -17,6 +17,7 @@ buildDir = 'build'
 libsDirName='../'
 
 mainClassName='backend.Backend'
+//mainClassName='simulator.Main'
 
 repositories {
 	jcenter()

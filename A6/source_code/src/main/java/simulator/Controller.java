@@ -16,6 +16,7 @@ public class Controller {
 	private Scanner askUser = new Scanner(System.in);
 	private int maxWidth = 100;
 	private int maxHeight = 100;
+	private List<String> output = new ArrayList<>();
 
 	public Controller(Simulator simulator) {
 		this.simulator = simulator;
@@ -28,6 +29,7 @@ public class Controller {
 		String response = this.simulator.validateAction(drone, this.actionPair);
 		if (showState) this.simulator.renderRegion();
 		this.simulator.displayActionAndResponses(drone.getId(), this.actionPair, response);
+		this.output = this.simulator.displayOutput(drone.getId(), this.actionPair, response);
 		//System.out.println("print map .....");
 		//this.simulator.getSystemMap().print_map();
 		if(this.simulator.isGameOver()) return 0;
@@ -316,5 +318,9 @@ public class Controller {
 
 	public void setMapHeight(int maxHeight) {
 		this.maxHeight = maxHeight;
+	}
+
+	public List<String> getOutput(){
+		return this.output;
 	}
 }

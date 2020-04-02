@@ -327,4 +327,42 @@ public class Simulator {
 	public SystemMap getSystemMap() {
 		return this.systemMap;
 	}
+
+	public Controller getController() {
+		return this.controller;
+	}
+
+	// display two lines output for each action taken by drone
+	public List<String> displayOutput(int id, ActionPair actionPair, String response) {
+		List<String> output = new ArrayList<>();
+        // display the drone's actions
+		Object act = actionPair.getAction();
+		Object param = actionPair.getParam();
+		
+		String action = "d" + String.valueOf(id) + "," + act.toString().toLowerCase();
+        if(param != null) {
+			action = action + "," + param.toString().toLowerCase();
+		}
+		output.add(action);
+
+		// display the simulation checks and/or responses
+		output.add(response);
+       	return output;
+    }
+	
+	// display the last line output with four numbers
+	public HashMap<String, Integer> displayFinalReport(int completeTurns){
+		HashMap<String, Integer> report = new HashMap<>();
+		int mapSize = this.systemMap.getMapSize();
+		int numOfSuns = this.systemMap.getNumOfSuns();
+		int numOfExplorableSquares = mapSize - numOfSuns; 
+		int numOfExploredSafeSquares = this.systemMap.getAllSafeSquaresExplored().size();
+		
+		report.put("mapSize", mapSize);
+		report.put("numOfExplorableSquares", numOfExplorableSquares);
+		report.put("numOfExploredSafeSquares", numOfExploredSafeSquares);
+		report.put("completeTurns", completeTurns);
+		
+		return report;
+	}
 }

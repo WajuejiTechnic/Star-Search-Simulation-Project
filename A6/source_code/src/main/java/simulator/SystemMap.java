@@ -254,4 +254,13 @@ public class SystemMap {
 	public int getRechargeFuel() {
 		return this.rechargeFuel;
 	}
+
+	public int getNumOfDrones() {
+		return this.numOfDrones;
+	}
+
+	public Drone getDroneById(int id){
+		return this.drone[id];
+
+	}
 }

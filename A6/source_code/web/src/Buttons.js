@@ -1,11 +1,11 @@
 import React from "react";
 
-class Stats extends React.Component {
-  render() {
+function Buttons(props) {
+    console.info("Button", props);
     return (
       <div className="buttons">
-        <button className="waves-effect waves-light btn cyan darken-2 mtop">
-          <i className="material-icons right">cloud</i>button
+        <button disabled = {props.isDisabled} className = "waves-effect waves-light btn cyan darken-2 mtop" 
+          onClick={props.handleClick}>next
         </button>
 
         <button className="waves-effect waves-light btn cyan darken-2 mleft mtop">
@@ -17,7 +17,6 @@ class Stats extends React.Component {
         </button>
       </div>
     );
-  }
 }
 
-export default Stats;
+export default Buttons;
