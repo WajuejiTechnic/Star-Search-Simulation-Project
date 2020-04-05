@@ -4,12 +4,19 @@ import PlotMap from './PlotMap';
 import Reports from "./Reports.js";
 import Outputs from "./Outputs.js";
 import Buttons from "./Buttons.js";
+import M from 'materialize-css';
+import SideMenu from './SideMenu';
+//import 'materialize-css';
+//import 'materialize-css/dist/js/materialize.min.js';
 
 class App extends Component{
+   
   constructor(props) {
     super(props);
     this.state = {
-      file: "scenario0.csv",
+      files: [],
+      fileName: "",
+      mode: "initial",
       mapWidth: 20,
       mapHeight: 15,
       maxTurns: 100,
@@ -17,13 +24,18 @@ class App extends Component{
       squares: [],
       drones: [],
       output: "",
-      finalReport: [],
-      isDisabled: ""
+      finalReport: "",
+      disabled: false
     }
+
+    this.generatefiles();
+    this.fastForward = false;
+    this.forward = null;
   }
 
   fetchInitData = () => {
-    fetch("/star-search?file="+ this.state.file)
+    console.log("fetch file = "+this.state.fileName)
+    fetch("/star-search?fileName="+ this.state.fileName)
     .then(res => res.json())
     .then(result => {
       //console.log(result)
@@ -33,7 +45,7 @@ class App extends Component{
         maxTurns: result["maxTurns"],
         numOfDrones: result["numOfDrones"],
         squares: result["squares"],
-        drones: result["drones"]
+        drones: result["drones"],
       })
      
       console.log("Fetch InitData ")
@@ -56,42 +68,124 @@ class App extends Component{
       console.log("squares =" + JSON.stringify(result["squares"]))
       console.log("drones = " + JSON.stringify(result["drones"]))
       console.log("output = " + result["output"])
-      console.log("finalReport = " + JSON.stringify(result["finalReport"]));
-      console.log("disabled = " + JSON.stringify(result["disabled"]))
+      console.log("finalReport = " + JSON.stringify(result["finalReport"]))
       this.setState({
         squares: result["squares"],
         drones: result["drones"],
         output: result["output"],
         finalReport: result["finalReport"],
-        isDisabled: result["disabled"]
+        disabled: result["finalReport"] === "" ? "yes": ""
       })
+      if(this.fastForward && result["finalReport"] === ""){
+        console.log("keeping update")
+        this.forward = setTimeout(this.fetchUpdates, 1000)
+      }
+      else{
+        this.forward = null
+      }
     })
     .catch(error => {
       console.log('err', error)
     })
   }
 
-  handleClick = () => {
-    //this.setState({
-    //  mapWidth: 10,
-    //})
-    //console.log("after click: width = "+ this.state.mapWidth);
-    this.fetchUpdates();
+  // handle button click
+  handleStart = (e) => {
+    if(this.state.fileName.endsWith(".csv")){
+      console.log("press START...")
+      this.fetchInitData()
+      this.setState({
+        disabled: true,
+      })
+    }
+    else{
+      e.preventDefault()
+    }
+  }
+  
+  handleNext = () => {
+    console.log("press NEXT...")
+    this.fastForward = false
+    this.fetchUpdates()
+  }
+
+  handleForward = (e) => {
+    console.log("press FORWARD...")
+    this.fastForward = true
+    this.fetchUpdates()
+    
+  }
+
+  handlePause = (e) => {
+    console.log("press PAUSE...")
+    this.fastForward = false
+  }
+
+  handleStop = (e) => {
+    console.log("press STOP...")
+    this.fastForward = false
+    if (this.forward !== null) {
+      clearTimeout(this.forward)
+    }
+      this.forward = null
+      this.setState({
+        mode: "initial",
+        mapWidth: 20,
+        mapHeight: 15,
+        maxTurns: 100,
+        numOfDrones: 0,
+        squares: [],
+        drones: [],
+        output: "",
+        finalReport: "",
+        disabled: false
+    });
+  }
+
+  // handle input file
+  handleFile = (e) => {
+    this.setState({
+      fileName: e.target.value
+    });
+    console.log("select file...")
+    console.log("fileName: " + e.target.value)
+  }
+
+  // handle mode 
+  handleMode = (e) => {
+    this.setState({ 
+      mode: e.target.value
+    });
+    console.log("choose mode...")
+    console.log("initialMode:"+ e.target.value)
+  }
+
+  // generate scenario filenames
+  generatefiles = () => {
+    for(var i = 0; i <= 30; i++){
+      this.state.files.push("scenario" + i + ".csv")
+    }
   }
 
   componentDidMount = () => {
-    this.fetchInitData();
+    M.AutoInit()
   }
 
+  /*<Mode mode = {this.state.mode} handleMode = {this.handleMode} disabled = {this.state.disabled}/>
+  <InputFile files = {this.state.files} handleFile = {this.handleFile} disabled = {this.state.disabled}/>*/
   render(){
     return (
       <div className="App"> 
         <div className="simulator">
+          <SideMenu mode = {this.state.mode} handleMode = {this.handleMode} disabled = {this.state.disabled} 
+            files = {this.state.files} handleFile = {this.handleFile}/>
           <Outputs/>
-          <Reports/>
-          <Buttons isDisabled = {this.state.isDisabled} handleClick = {this.handleClick}/>
+          <Reports/>   
+          <Buttons disabled = {this.state.disabled} handleStart = {this.handleStart} handleNext = {this.handleNext} 
+            handleForward = {this.handleForward} handlePause = {this.handlePause} handleStop = {this.handleStop}
+            fileName = {this.state.fileName} mode = {this.state.mode}/>
           <PlotMap mapWidth = {this.state.mapWidth}  mapHeight = {this.state.mapHeight} 
-            squares = {this.state.squares}/>
+            squares = {this.state.squares} drones = {this.state.drones}/>
         </div>
       </div>
     );

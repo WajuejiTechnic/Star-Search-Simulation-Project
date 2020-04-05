@@ -33,17 +33,21 @@ public class SimManager {
 		states.put("numOfDrones", this.systemMap.getNumOfDrones());
 		states.put("squares", this.systemMap.getAllSquaresExploredOrScanned());
 		states.put("drones", this.systemMap.getAllActiveDrones());
+		//states.put("disableStart", "yes");
+		//states.put("disabled", true);
 		return new ObjectMapper().writeValueAsString(states);
 	}
 
 	@GetMapping("/star-search")
-	public String initialize (@RequestParam (value = "testFileName", 
-	defaultValue = "scenario0.csv") String file) throws Exception {
-		this.simulator = new Simulator(file);
+	public String initialize (@RequestParam (value = "fileName") String fileName) throws Exception {
+		System.out.print(fileName);
+		this.simulator = new Simulator(fileName);
 		this.systemMap = this.simulator.getSystemMap();
 		this.controller = this.simulator.getController();
 		this.maxNumOfTurns = this.systemMap.getTurnLimit();
-		System.out.println("start");
+		this.activeDrones = new ArrayList<>();
+		this.turns = 0;
+		System.out.println(" start");
 		return this.getInitialStates();
 	}
 
@@ -61,11 +65,9 @@ public class SimManager {
 		states.put("output", this.controller.getOutput());
 		if (rel == 0) {
 			states.put("finalReport", this.simulator.displayFinalReport(turns));
-			states.put("disabled", "disabled");
 		}
 		else {
-			states.put("finalReport", null);
-			states.put("disabled", "");
+			states.put("finalReport", "");
 		}
 		return new ObjectMapper().writeValueAsString(states);
 	}

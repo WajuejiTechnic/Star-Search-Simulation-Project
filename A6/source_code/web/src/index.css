@@ -34,7 +34,7 @@ body {
   background: rgba(255, 255, 255, 0.03);
 }
 
-.outputs, .reports{
+.output, .report{
   font-size: 0.75rem;
   background: rgba(0, 0, 0, 0.618);
   padding: 0.5rem 0.618rem;
@@ -43,18 +43,18 @@ body {
   height: 90vmin;
 }
 
-.reports {
+.report {
   position: fixed;
   top: 0%;
   left: 0%;
-  z-index: 9000;
+  z-index: 999;
 }
 
-.outputs {
+.output {
   position: fixed;
   top: 0%;
   right: 0%;
-  z-index: 9000;
+  z-index: 999;
   /*width: 11rem;*/
 }
 
@@ -73,17 +73,84 @@ body {
   content: ""
 }
 
-.buttons {
+.button {
   position: fixed;
   bottom: 0%;
-  width: 120vmin;
+  width: 110vmin;
   height: 10vmin;
+  margin-right: 20px;
 }
 
-.mleft {
+.mleft-30{
   margin-left: 30px;
 }
 
-.mtop{
+.mtop-20{
   margin-top: 20px;
 }
+
+.mtop-40{
+  margin-top: 40px;
+}
+
+.input-box{
+  position: fixed;
+  bottom: 0%;
+  left: 10;
+  z-index: 9000;
+  width: 28vmin;
+}
+
+.select-wrapper input.select-dropdown {
+  border-bottom: 2px solid darkcyan;
+  font-size: 16px;
+  color: darkgray
+}
+
+.btn {
+  font-size: 16px;
+}
+
+.mode{
+  color: black;
+}
+
+.side-menu{
+  position: fixed;
+  bottom: 3%;
+  left: 1%;
+  z-index: 9000;
+}
+
+.sidenav{
+  font-size: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.9);
+  text-align: left;
+  width: 400px;
+  line-height: 60px;
+}
+
+.select-wrapper .caret{
+  fill: white;
+  height: 28px;
+  width: 28px;
+}
+
+.btn:disabled, .btn[disabled]
+{
+  background-color: gray !important;
+  color: #fff !important;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2) !important;
+}
+
+.btn-floating{
+  background-color: #3e2723;
+}
+
+.material-tooltip {
+  background-color: rgba(235, 159, 18, 0.2);
+  color: black
+}
+
+
+

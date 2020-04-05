@@ -3,9 +3,9 @@ import React from "react";
 class Reports extends React.Component {
   render() {
     return (
-      <div className="reports">
+      <div className="report">
         <div className = "card-panel large black">
-        <p> Display Current State of All Objects & Final Report </p>
+        <p> Display Current State of All Objects and Final Report </p>
         </div>
       </div>
     );

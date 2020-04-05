@@ -17,6 +17,21 @@ function PlotMap(props) {
                 y: j,
                 name: sqr["name"].toString().toLowerCase(),
                 state: sqr["state"].toString().toLowerCase(),
+                direction:""
+            }
+        }
+    }
+
+    var updateDrone = () => {
+        for(var k = 0; k < Object.keys(props.drones).length; k++){
+            var drone = props.drones[k];
+            var i = drone["y"]
+            var j = drone["x"]
+            gameMap[i][j] = {
+                x: i,
+                y: j,
+                name: "drone",
+                direction: drone["direction"].toString().toLowerCase()
             }
         }
     }
@@ -30,11 +45,40 @@ function PlotMap(props) {
                     y: j,
                     name: "",
                     state: "",
+                    direction: ""
                 }
             }
         }
         updateSquare();
+        updateDrone();
     };
+
+    var getDegree = (direc) => {
+        if (direc === "northeast") {
+            return "rotate(0deg)";
+        }    
+        if (direc === "east") {
+            return "rotate(45deg)";
+        }
+        if (direc === "southeast") {
+            return "rotate(90deg)";
+        }
+        if (direc === "south") {
+            return "rotate(135deg)";
+        }
+        if (direc === "southwest") {
+            return "rotate(180deg)";
+        }
+        if (direc === "west") {
+            return "rotate(225deg)";
+        }
+        if (direc === "northwest") {
+            return "rotate(270deg)";
+        }
+        if (direc === "north") {
+            return "rotate(315deg)";
+        }
+    }
 
     var getName = (square, sqrSize) => {
         if (square.name === "stars") {
@@ -44,9 +88,10 @@ function PlotMap(props) {
             );
         }
         if (square.name === "drone") {
+            var direc = square.direction.toString().toLowerCase()
             return (
-                <img src = {drone} alt = "drone"
-                    style = {{width: sqrSize + "vmin", height: sqrSize + "vmin"}}/>
+                <img src = {drone} alt = "drone" 
+                    style = {{width: sqrSize + "vmin", height: sqrSize + "vmin", transform: getDegree(direc)}}/>
             );
         }
         if (square.name === "sun") {
@@ -58,10 +103,17 @@ function PlotMap(props) {
     }
 
     var getState = (square) => {
-        if (square.state === "explored") {
+        if (square.state === "scanned") {
             return "lightgreen";
         }
     }
+
+    var getData = (square) => {
+        var data = " ("+ square.x + ", " + square.y + ") "
+        if (square.name === "drone") data += square.direction.toUpperCase()
+        return data
+    }
+
 
     updateGameMap();
     var sqrSize = 120 / props.mapWidth;
@@ -81,9 +133,9 @@ function PlotMap(props) {
             var square = gameMap[r][c];
             id += 1;
             squares.push(
-                <div style={{height: sqrSize + "vmin", width: sqrSize + "vmin", backgroundColor: getState(square)}} 
-                    className = "square" key={id}>
-                    {getName(square, sqrSize)}
+                <div className = "square tooltipped" data-position="bottom" data-tooltip = {getData(square)} key={id}
+                    style={{height: sqrSize + "vmin", width: sqrSize + "vmin", backgroundColor: getState(square)}}>
+                    {getName(square, 0.8*sqrSize)}
                 </div>
             );
         }
