@@ -4,10 +4,8 @@ import PlotMap from './PlotMap';
 import Reports from "./Reports.js";
 import Outputs from "./Outputs.js";
 import Buttons from "./Buttons.js";
-import M from 'materialize-css';
 import SideMenu from './SideMenu';
-//import 'materialize-css';
-//import 'materialize-css/dist/js/materialize.min.js';
+import M from 'materialize-css';
 
 class App extends Component{
    
@@ -23,9 +21,11 @@ class App extends Component{
       numOfDrones: 0,
       squares: [],
       drones: [],
-      output: "",
+      output: [],
+      outputs: [],
       finalReport: "",
-      disabled: false
+      disabled: false,
+      show: false
     }
 
     this.generatefiles();
@@ -69,10 +69,12 @@ class App extends Component{
       console.log("drones = " + JSON.stringify(result["drones"]))
       console.log("output = " + result["output"])
       console.log("finalReport = " + JSON.stringify(result["finalReport"]))
+      this.state.outputs.push(result["output"][0])
+      this.state.outputs.push(result["output"][1])
       this.setState({
         squares: result["squares"],
         drones: result["drones"],
-        output: result["output"],
+        outputs: this.state.outputs,
         finalReport: result["finalReport"],
         disabled: result["finalReport"] === "" ? "yes": ""
       })
@@ -96,6 +98,8 @@ class App extends Component{
       this.fetchInitData()
       this.setState({
         disabled: true,
+        show: true,
+        outputs:[]
       })
     }
     else{
@@ -136,16 +140,18 @@ class App extends Component{
         numOfDrones: 0,
         squares: [],
         drones: [],
-        output: "",
+        output: [],
+        outputs: [],
         finalReport: "",
-        disabled: false
+        disabled: false,
+        show: false
     });
   }
 
   // handle input file
   handleFile = (e) => {
     this.setState({
-      fileName: e.target.value
+      fileName: e.target.value,
     });
     console.log("select file...")
     console.log("fileName: " + e.target.value)
@@ -179,11 +185,15 @@ class App extends Component{
         <div className="simulator">
           <SideMenu mode = {this.state.mode} handleMode = {this.handleMode} disabled = {this.state.disabled} 
             files = {this.state.files} handleFile = {this.handleFile}/>
-          <Outputs/>
-          <Reports/>   
+          <Outputs show = {this.state.show} outputs = {this.state.outputs} />
+
+          <Reports mapWidth = {this.state.mapWidth} mapHeight = {this.state.mapHeight} squares = {this.state.squares}
+            maxTurns = {this.state.maxTurns} drones = {this.state.drones} show = {this.state.show}/>   
+
           <Buttons disabled = {this.state.disabled} handleStart = {this.handleStart} handleNext = {this.handleNext} 
             handleForward = {this.handleForward} handlePause = {this.handlePause} handleStop = {this.handleStop}
             fileName = {this.state.fileName} mode = {this.state.mode}/>
+
           <PlotMap mapWidth = {this.state.mapWidth}  mapHeight = {this.state.mapHeight} 
             squares = {this.state.squares} drones = {this.state.drones}/>
         </div>

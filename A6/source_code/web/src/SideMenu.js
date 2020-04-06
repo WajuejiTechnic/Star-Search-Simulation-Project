@@ -2,7 +2,7 @@ import React from "react";
 
 function SideMenu(props) {
 
-  const options = props.files.map(fl => {
+  var options = props.files.map(fl => {
     //console.log("fl:", fl)
     return(
       <option key={fl} value={fl}>{fl}</option>
