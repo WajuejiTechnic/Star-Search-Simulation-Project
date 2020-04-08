@@ -17,6 +17,7 @@ function PlotMap(props) {
                 y: j,
                 name: sqr["name"].toString().toLowerCase(),
                 state: sqr["state"].toString().toLowerCase(),
+                id:"",
                 direction:""
             }
         }
@@ -31,6 +32,7 @@ function PlotMap(props) {
                 x: i,
                 y: j,
                 name: "drone",
+                id: drone["id"].toString(),
                 direction: drone["direction"].toString().toLowerCase()
             }
         }
@@ -110,10 +112,12 @@ function PlotMap(props) {
 
     var getData = (square) => {
         var data = " ("+ square.x + ", " + square.y + ") "
-        if (square.name === "drone") data += square.direction.toUpperCase()
+        if (square.name === "drone") {
+            data = "d" + square.id + data
+            data += square.direction.toUpperCase()
+        }
         return data
     }
-
 
     updateGameMap();
     var sqrSize = 120 / props.mapWidth;

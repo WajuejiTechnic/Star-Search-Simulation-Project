@@ -1,5 +1,8 @@
 package simulator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Square {
 	private int x;
 	private int y;

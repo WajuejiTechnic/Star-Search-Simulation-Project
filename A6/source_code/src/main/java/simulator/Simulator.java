@@ -235,12 +235,13 @@ public class Simulator {
 		Object act = actionPair.getAction();
 		Object param = actionPair.getParam();
 		
-        System.out.print("d" + String.valueOf(id) + "," + act.toString().toLowerCase());
+		System.out.print("d" + String.valueOf(id) + "," + act.toString().toLowerCase());
+		String fuel = ",fuel " + String.valueOf(this.systemMap.getDroneById(id).getFuel());
         if(param != null) {
-        	System.out.println("," + param.toString().toLowerCase());
+        	System.out.println("," + param.toString().toLowerCase() + fuel);
         }
         else {
-        	System.out.println();
+        	System.out.println(fuel);
         }
 
         // display the simulation checks and/or responses
@@ -319,7 +320,7 @@ public class Simulator {
         List<Drone> activeDrones = this.systemMap.getAllActiveDrones();
         for(Drone drone: activeDrones) {
             System.out.println("dir d" + String.valueOf(drone.getId()) + ": " 
-            		+ drone.getDirection().toString() + " with fuel " + String.valueOf(drone.getFuel()));
+            		+ drone.getDirection().toString() + ",fuel " + String.valueOf(drone.getFuel()));
         }
         System.out.println("");
     }
@@ -343,7 +344,7 @@ public class Simulator {
         if(param != null) {
 			action = action + "," + param.toString().toLowerCase();
 		}
-		output.add(action);
+		output.add(action + ",fuel " + String.valueOf(this.systemMap.getDroneById(id).getFuel()));
 
 		// display the simulation checks and/or responses
 		output.add(response);

@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 function Outputs (props){
-
+  console.log("Output", props)
   const outputRef = React.createRef();
   
-  React.useEffect(()=>{
+  useEffect(()=>{
     const scrollToBottom = () => {
       outputRef.current.scrollIntoView({
         behavior: 'smooth'
@@ -16,7 +16,11 @@ function Outputs (props){
   },[outputRef])
  
   var name = props.show ? "content" : "hide"
-  var outputs = props.outputs.map((output, index) => {
+  var lines = []
+  for (var x of props.outputs){
+    lines = lines.concat(x)
+  }
+  var outputs = lines.map((output, index) => {
     return (
         <p key = {index} ref={outputRef}>{output}</p>
     )

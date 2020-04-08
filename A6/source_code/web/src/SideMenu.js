@@ -1,18 +1,19 @@
 import React from "react";
 
-function SideMenu(props) {
+function SideMenu (props) {
+  console.log("sideMenu", props)
 
-  var options = props.files.map(fl => {
+  const options = props.files.map((fl, index) => {
     //console.log("fl:", fl)
     return(
-      <option key={fl} value={fl}>{fl}</option>
+      <option key={index} value={fl}>{fl}</option>
     )
   });
 
   return (
     <div className="side-menu">
       <button data-target="setting" className="btn-floating pulse sidenav-trigger tooltipped" 
-        data-position="right" data-tooltip = "menu">
+        data-position="right" data-tooltip = "menu" disabled = {props.disabled} >
         <i className="material-icons">menu</i></button>
     
         <div id="setting" className="sidenav" hidden = {props.disabled}>
@@ -35,19 +36,14 @@ function SideMenu(props) {
             </label>
             </p>
 
-
           <h6> Please select scenario file:</h6>
-          <div className ="input-field">
-            <select value = {props.fileName} onChange = {props.handleFile}>
-            <option value="" >Select Scenario File</option>
+          <select className= "browser-default" onChange = {props.handleFile} >
+            <option value = {props.fileName}>Select Scenario File</option>
               {options}
-            </select>
-          </div>
+          </select>
         </div>
-        </div>
-      
+      </div>
     </div>
-  
   )
 }
 

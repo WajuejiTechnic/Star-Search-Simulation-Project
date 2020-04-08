@@ -2,6 +2,7 @@ package simulator;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -262,5 +263,13 @@ public class SystemMap {
 	public Drone getDroneById(int id){
 		return this.drone[id];
 
+	}
+
+	public int[] getFuels (){
+		int[] fuels = new int[3];
+		fuels[0] = this.initialFuel;
+		fuels[1] = this.rechargeFuel;
+		fuels[2] = this.maxFuel;
+		return fuels;
 	}
 }
