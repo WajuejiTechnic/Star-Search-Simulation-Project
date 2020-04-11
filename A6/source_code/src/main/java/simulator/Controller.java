@@ -39,10 +39,6 @@ public class Controller {
 	public void startTurn(int turns, Boolean showState) throws Exception {
 		this.activeDrones = this.starMap.getAllActiveDrones();
 		for(Drone drone: this.activeDrones){
-			int rel = this.pullDroneForAction(drone, turns, showState);
-			if(rel == -1) continue;
-			if(rel == 0) return;
-			/*
 			if(drone.getCrashed()) continue;
 			this.actionPair = this.selectAction(drone, turns);
 			String response = this.simulator.validateAction(drone, this.actionPair);
@@ -50,7 +46,7 @@ public class Controller {
 			this.simulator.displayActionAndResponses(drone.getId(), this.actionPair, response);
 			//System.out.println("print map .....");
 			//this.simulator.getSystemMap().print_map();
-			if(this.simulator.isGameOver()) return;*/
+			if(this.simulator.isGameOver()) return;
 		}
 	}
 	

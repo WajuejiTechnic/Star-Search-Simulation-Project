@@ -36,10 +36,10 @@ public class Simulator {
 		for(int turns = 1; turns <= this.maxNumOfTurns; turns++) {
 			this.controller.startTurn(turns, showState);
 			if (terminate(turns)) break;
-			/*if(this.isGameOver() || turns == this.maxNumOfTurns) {
+			if(this.isGameOver() || turns == this.maxNumOfTurns) {
 				this.displayReport(turns);
 				break;
-			}*/
+			}
 		}
 	}
 
