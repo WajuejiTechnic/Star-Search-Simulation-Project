@@ -9,7 +9,7 @@ function Report (props) {
             <p>MapSize: {props.finalReport["mapSize"]}</p>
             <p>ExplorableSquares: {props.finalReport["numOfExplorableSquares"]}</p>
             <p>ExploredSafeSquares: {props.finalReport["numOfExploredSafeSquares"]}</p>
-            <p>CompletedTurns {props.finalReport["completeTurns"]}</p>
+            <p>CompletedTurns: {props.finalReport["completeTurns"]}</p>
         </div>
         <div className="card-action modal-close right-align">
           <span className ="orange-text">OK</span>

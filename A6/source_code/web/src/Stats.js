@@ -12,7 +12,7 @@ function Stats (props) {
     return(
       <tr key ={d["id"]}>
           <td>d{d["id"]} </td>
-          <td>({d["y"]},{d["x"]})</td>
+          <td>({d["x"]},{d["y"]})</td>
           <td>{d["direction"].toString().toLowerCase()}</td>
           <td>{d["fuel"]}</td>
           <td>{d["strategy"]}</td>

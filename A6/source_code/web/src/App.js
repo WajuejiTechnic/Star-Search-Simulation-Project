@@ -130,6 +130,23 @@ class App extends Component{
     })
   }
 
+  fetchReport = () => {
+    fetch("/stop")
+    .then(res => res.json())
+    .then(result => {
+      console.log(result)
+      console.log("stop to fetch report") 
+      console.log("finalReport = " + JSON.stringify(result["finalReport"]))
+
+      this.setState({
+        finalReport: result["finalReport"],
+      })
+    })
+    .catch(error => {
+      console.log('err', error)
+    })
+  }
+
   // handle button click
   handleStart = (e) => {
     if(this.state.fileName.endsWith(".csv")){
@@ -167,6 +184,7 @@ class App extends Component{
     if (this.forward !== null) {
       clearTimeout(this.forward)
     }
+    this.fetchReport()
     this.reset()
     this.fetchFiles()
     this.fastForward = false;

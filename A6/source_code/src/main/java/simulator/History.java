@@ -3,8 +3,6 @@ package simulator;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class History {
 	private int width;
 	private int height;
@@ -15,6 +13,7 @@ public class History {
 	private int[] fuels;
 	private int totalDrones;
 	private List<Drone> drones;
+	private List<Drone> allDrones;
 	private List<List<String>> outputs;
 	private Map<String, Integer> finalReport;
 
@@ -104,6 +103,14 @@ public class History {
 
 	public void setSafeSquares(int safeSquares) {
 		this.safeSquares = safeSquares;
+	}
+
+	public List<Drone> getAllDrones() {
+		return allDrones;
+	}
+
+	public void setAllDrones(List<Drone> allDrones) {
+		this.allDrones = allDrones;
 	}
 
 	
