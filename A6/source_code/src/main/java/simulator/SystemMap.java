@@ -2,7 +2,6 @@ package simulator;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -231,7 +230,15 @@ public class SystemMap {
 		}
 		return activeDrones;
 	}
-	
+
+	public List<Drone> getAllDrones(){
+		List<Drone> drones = new ArrayList<>();
+		for(int k = 0; k < this.numOfDrones; k++){
+			drones.add(this.drone[k]);
+		}
+		return drones;
+	}
+
 	public int getWidth() {
 		return this.width;
 	}

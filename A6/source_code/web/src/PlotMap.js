@@ -111,7 +111,7 @@ function PlotMap(props) {
     }
 
     var getData = (square) => {
-        var data = " ("+ square.x + ", " + square.y + ") "
+        var data = " ("+ square.y + ", " + square.x + ") "
         if (square.name === "drone") {
             data = "d" + square.id + data
             data += square.direction.toUpperCase()

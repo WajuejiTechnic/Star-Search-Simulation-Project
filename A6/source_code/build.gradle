@@ -50,6 +50,6 @@ sourceSets {
 
 shadowJar {
 	classifier = "fat"
-	baseName = "cs6310-group10"
+	archiveName = "star_search.jar"
 	from(project.sourceSets.main.output)
 }

@@ -8,7 +8,7 @@ public class Drone {
 	private int strategy;
 	private Boolean crashed;
 	private int fuel;
-	private int maxFuel;
+	private int maxFuel = 30000;
 	
 	public void createDrone(int id, int x, int y, Direction direction, int strategy, int initialFuel, int maxFuel){
 		this.id = id;
@@ -86,5 +86,13 @@ public class Drone {
 		}
 		else
 			return false;
+	}
+
+	public int getMaxFuel(){
+		return this.maxFuel;
+	}
+
+	public void setMaxFuel(int fuel){
+		this.maxFuel = fuel;
 	}
 }

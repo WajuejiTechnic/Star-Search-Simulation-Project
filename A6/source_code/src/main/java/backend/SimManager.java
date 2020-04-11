@@ -1,6 +1,5 @@
 package backend;
 
-import java.io.Console;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +35,7 @@ public class SimManager {
 	private List<Square> squares;
 	private int safeSquares; 
 	private List<Drone> drones;
+	private List<Drone> allDrones;
 	private List<List<String>> outputs;
 	private Map<String, Integer> finalReport;
 
@@ -84,6 +84,7 @@ public class SimManager {
 		this.activeDrones = new ArrayList<>();
 		if(mode.equals("resume")) {
 			this.loadHistory(fileName);
+			this.updateSquares(this.squares, this.allDrones);
 		}
 
 		System.out.println(" start");
@@ -107,6 +108,7 @@ public class SimManager {
 		this.squares = this.systemMap.getAllSquaresExploredOrScanned();
 		this.drones = this.systemMap.getAllActiveDrones();
 		this.safeSquares = this.systemMap.getAllSafeSquaresExplored().size();
+		this.allDrones = this.systemMap.getAllDrones();
 
 		states.put("turns", this.turns);
 		states.put("squares", this.squares);
@@ -155,18 +157,15 @@ public class SimManager {
 
 	public void saveHistory() throws Exception {
 		History hist = new History();
-		hist.setWidth(this.width);
-		hist.setHeight(this.height);
-		hist.setMaxTurns(this.maxTurns);
 		hist.setTurns(this.turns);
 		hist.setSquares(this.squares);
 		hist.setSafeSquares(this.safeSquares);
-		hist.setFuels(this.fuels);
 		hist.setTotalDrones(this.totalDrones);
 		hist.setDrones(this.drones);
+		hist.setAllDrones(this.allDrones);
 		hist.setOutputs(this.outputs);
 		hist.setFinalReport(this.finalReport);
-		System.out.println("save finalReport" +  this.finalReport);
+		//System.out.println("save finalReport" +  this.finalReport);
 		String fl = this.fileName + ".json";
 		mapper.writeValue(new File(fl), hist);
 	}
@@ -174,15 +173,12 @@ public class SimManager {
 	public void loadHistory (String fileName) throws Exception {
 		String fl = fileName + ".json";
 		History hist = mapper.readValue(new File(fl), History.class);
-		this.width = hist.getWidth();
-		this.height = hist.getHeight();
-		this.maxTurns = hist.getMaxTurns();
 		this.turns = hist.getTurns();
 		this.squares = hist.getSquares();
 		this.safeSquares = hist.getSafeSquares();
-		this.fuels = hist.getFuels();
 		this.totalDrones = hist.getTotalDrones();
 		this.drones = hist.getDrones();
+		this.allDrones = hist.getAllDrones();
 		this.outputs = hist.getOutputs();
 		this.finalReport = hist.getFinalReport();
 	}
@@ -205,5 +201,35 @@ public class SimManager {
 		states.put("filesToInitial", filesToInitial);
 		states.put("filesToResume", filesToResume);
 		return mapper.writeValueAsString(states);
+	}
+
+	@GetMapping("/stop")
+	public Object stop() {
+		Map<String, Object> states = new HashMap<>();
+		this.finalReport = this.simulator.displayFinalReport(turns);
+		states.put("finalReport", this.finalReport);
+		return states;
+	}
+
+	public void updateSquares(List<Square> newSquares, List<Drone> newDrones){
+		for (Square sqr: newSquares){
+			Square square = this.systemMap.getSquare(sqr.getX(), sqr.getY());
+			square.setName(sqr.getName());
+			square.setState(sqr.getState());
+		}
+
+		for (Drone d: newDrones){
+			Drone dr = this.systemMap.getDroneById(d.getId());
+			//System.out.println("drone:" +  d.getId() +  " " + d.getMaxFuel());
+		
+			//System.out.println("before:" + dr.getDirection() + " " + dr.getFuel() + " " + d.getFuel());
+			dr.setX(d.getX());
+			dr.setY(d.getY());
+			dr.setDirection(d.getDirection());
+			dr.setFuel(d.getFuel());
+			dr.setCrashed(d.getCrashed());
+			//System.out.println("after:" + dr.getDirection() + " " + dr.getFuel());
+		}
+		
 	}
 }
