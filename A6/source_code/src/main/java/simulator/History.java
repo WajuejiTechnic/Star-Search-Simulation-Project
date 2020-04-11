@@ -4,42 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 public class History {
-	private int width;
-	private int height;
-	private int maxTurns;
 	private int turns;
 	private List<Square> squares;
 	private int safeSquares;
-	private int[] fuels;
 	private int totalDrones;
 	private List<Drone> drones;
 	private List<Drone> allDrones;
 	private List<List<String>> outputs;
 	private Map<String, Integer> finalReport;
 
-	public int getWidth() {
-		return width;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public int getMaxTurns() {
-		return maxTurns;
-	}
-
-	public void setMaxTurns(int maxTurns) {
-		this.maxTurns = maxTurns;
-	}
 
 	public int getTurns() {
 		return turns;
@@ -87,14 +60,6 @@ public class History {
 
 	public void setFinalReport(Map<String, Integer> finalReport) {
 		this.finalReport = finalReport;
-	}
-
-	public int[] getFuels() {
-		return fuels;
-	}
-
-	public void setFuels(int[] fuels) {
-		this.fuels = fuels;
 	}
 
 	public int getSafeSquares() {

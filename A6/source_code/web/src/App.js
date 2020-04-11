@@ -62,7 +62,7 @@ class App extends Component{
                   +result["turns"] +" "+ result["totalDrones"])
       console.log("squares = " + JSON.stringify(result["squares"]))
       console.log("safeSquares = " + JSON.stringify(result["safeSquares"]))
-      console.log("fuels = " + JSON.stringify[result["fuels"]])
+      console.log("fuels = " + result["fuels"])
       console.log("totalDrones" + result["totalDrones"])
       console.log("drones = " + JSON.stringify(result["drones"]))
       console.log("outputs = " + JSON.stringify(result["outputs"]))

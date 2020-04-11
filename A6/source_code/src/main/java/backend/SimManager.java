@@ -160,7 +160,6 @@ public class SimManager {
 		hist.setTurns(this.turns);
 		hist.setSquares(this.squares);
 		hist.setSafeSquares(this.safeSquares);
-		hist.setFuels(this.fuels);
 		hist.setTotalDrones(this.totalDrones);
 		hist.setDrones(this.drones);
 		hist.setAllDrones(this.allDrones);
@@ -177,7 +176,6 @@ public class SimManager {
 		this.turns = hist.getTurns();
 		this.squares = hist.getSquares();
 		this.safeSquares = hist.getSafeSquares();
-		this.fuels = hist.getFuels();
 		this.totalDrones = hist.getTotalDrones();
 		this.drones = hist.getDrones();
 		this.allDrones = hist.getAllDrones();
