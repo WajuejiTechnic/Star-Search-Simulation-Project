@@ -4,7 +4,7 @@ function Buttons(props) {
     console.info("Button", props);
     var data = "<= please select a scenario file"
     if (props.fileName.endsWith(".csv")) data =  props.mode + " mode with " + props.fileName 
-    var name = "waves-effect waves-light btn cyan darken-2 mleft-30 mtop-20 btn"
+    var name = "waves-effect waves-light btn cyan darken-2 mleft-30 mtop-30 btn"
     var menu = name + "tooltipped"
     var hide = Object.keys(props.finalReport).length === 0 ? true:false
     //var model = props.finalReport !== "" ?  name + "modal-trigger" : "hide"
