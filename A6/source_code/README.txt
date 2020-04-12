@@ -10,7 +10,7 @@
       java -cp star_search.jar simulator.Main scenario${i}.csv > scenario${i}_results.csv
    done
 
-3. to generate the fuel_test.jar file - under fule modification/test, run the command:
+3. to generate the fuel_test.jar file - under A6/source_code/src/test/java, run the command:
    javac *.java
    jar cfe fuel_test.jar Main *.class
    
