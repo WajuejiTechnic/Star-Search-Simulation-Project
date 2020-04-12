@@ -89,6 +89,14 @@ public class SimManager {
 
 		System.out.println(" start");
 		// System.out.println("isEmpty? " + this.finalReport.isEmpty());
+
+		//remove json file
+		File current = new File(".");
+		for(File f : current.listFiles()){
+			if (f.getName().endsWith(".json")){
+				f.delete();
+			}
+		}
 		return this.getInitialStates();
 	}
 
