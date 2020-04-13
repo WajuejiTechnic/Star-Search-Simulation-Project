@@ -344,7 +344,8 @@ class App extends Component{
       isStrat2: false,
       hideReport: true,
       actionPair: "",
-      maxSteps: 0
+      maxSteps: 0,
+      fastForward: false
     });
   }
 
