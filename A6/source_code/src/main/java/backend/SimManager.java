@@ -32,6 +32,7 @@ public class SimManager {
 	private int turns;
 	private int[] fuels;
 	private int totalDrones;
+	private int explorableSquares;
 	private List<Square> squares;
 	private int safeSquares; 
 	private List<Drone> drones;
@@ -49,6 +50,7 @@ public class SimManager {
 		states.put("maxTurns", this.maxTurns);
 		states.put("turns", this.turns);
 		states.put("fuels", this.fuels);
+		states.put("explorableSquares", this.explorableSquares);
 		states.put("squares", this.squares);
 		states.put("safeSquares", this.safeSquares);
 		states.put("totalDrones", this.totalDrones);
@@ -64,7 +66,7 @@ public class SimManager {
 	@GetMapping("/starSearch")
 	public String initialize(@RequestParam(value = "fileName") String fileName, 
 								@RequestParam(value = "mode") String mode) throws Exception {
-		System.out.println(fileName + " " + mode);
+		System.out.println("##############START with " + fileName + " & " + mode +" mode##############");
 		this.simulator = new Simulator(fileName);
 		this.systemMap = this.simulator.getSystemMap();
 		this.controller = this.simulator.getController();
@@ -73,6 +75,7 @@ public class SimManager {
 		this.height = this.systemMap.getHeight();
 		this.maxTurns = this.systemMap.getTurnLimit();
 		this.turns = 0;
+		this.explorableSquares = this.systemMap.getExplorableSquares();
 		this.squares = this.systemMap.getAllSquaresExploredOrScanned();
 		this.safeSquares = this.systemMap.getAllSafeSquaresExplored().size();
 		this.fuels = this.systemMap.getFuels();
@@ -87,25 +90,13 @@ public class SimManager {
 			this.updateSquares(this.squares, this.allDrones);
 		}
 
-		System.out.println(" start");
 		// System.out.println("isEmpty? " + this.finalReport.isEmpty());
-
-		//remove json file
-		File current = new File(".");
-		for(File f : current.listFiles()){
-			if (f.getName().endsWith(".json")){
-				f.delete();
-			}
-		}
 		return this.getInitialStates();
 	}
 
-	public int startNewTurn() {
-		if (this.simulator.terminate(turns))
-			return -1;
+	public void startNewTurn() {
 		this.activeDrones = this.systemMap.getAllActiveDrones();
 		this.turns += 1;
-		return 0;
 	}
 
 	public String updateState(int rel) throws Exception {
@@ -135,6 +126,15 @@ public class SimManager {
 		return mapper.writeValueAsString(states);
 	}
 
+	@GetMapping("/getStrat")
+	public Object getStrat(){
+		Map<String, Object> states = new HashMap<>();
+		if (this.activeDrones.size() == 0) this.startNewTurn();
+		Drone drone = this.activeDrones.get(0);
+		states.put("strat", drone.getStrategy());
+		return states;
+	}
+
 	// update state and display output if return 1
 	// final report if return 0
 	@GetMapping("/nextAction")
@@ -142,16 +142,40 @@ public class SimManager {
 		// check if a turn finished. If yes, start new turn
 		int rel = 1;
 		// System.out.println(this.activeDrones.size());
-		if (this.activeDrones.size() == 0) {
-			if (this.startNewTurn() == -1)
-				rel = 0;
-		}
 		Drone drone = this.activeDrones.get(0);
 		//System.out.println(
 		//		"before remove:" + this.turns + " " + this.activeDrones + " " + this.activeDrones.size() + " " + drone);
 		this.activeDrones.remove(0);
 		//System.out.println("after remove: " + this.activeDrones + " " + this.activeDrones.size() + " " + drone);
 		rel = this.controller.pullDroneForAction(drone, turns, false);
+
+		if (this.activeDrones.size() == 0 && this.turns == this.maxTurns)
+			rel = 0;
+		// continue pull next drone to action if rel == -1
+		if (rel == -1) {
+			this.action();
+		}
+		// final report if rel = 0, otherwise only update state and display output
+		return this.updateState(rel);
+	}
+
+	@GetMapping("/nextActionByUser")
+	public String actionByUser(@RequestParam(value = "action") String actionByUser, 
+								@RequestParam(value = "param") String paramByUser) throws Exception {
+		// check if a turn finished. If yes, start new turn
+		Object param = null;
+		if(actionByUser.equals("steer")) param = paramByUser;
+		if(actionByUser.equals("thrust")) param = Integer.parseInt(paramByUser);
+		//System.out.println("actionPair=" + actionByUser + " " + paramByUser);
+		
+		int rel = 1;
+		// System.out.println(this.activeDrones.size());
+		Drone drone = this.activeDrones.get(0);
+		//System.out.println(
+		//		"before remove:" + this.turns + " " + this.activeDrones + " " + this.activeDrones.size() + " " + drone);
+		this.activeDrones.remove(0);
+		//System.out.println("after remove: " + this.activeDrones + " " + this.activeDrones.size() + " " + drone);
+		rel = this.controller.pullDroneForActionByUser(drone, turns, false, actionByUser, param);
 
 		if (this.activeDrones.size() == 0 && this.turns == this.maxTurns)
 			rel = 0;
@@ -196,7 +220,7 @@ public class SimManager {
 		Map<String, Object> states = new HashMap<>();
 		List<String> filesToResume = new ArrayList<>();
 		List<String> filesToInitial = new ArrayList<>();
-		for (int i = 0; i <= 30; i++){
+		for (int i = 0; i <= 31; i++){
 			String fl = "scenario" + String.valueOf(i) + ".csv";
 			//System.out.println("fl: " + fl);
 			File tmpFile = new File(fl+".json");

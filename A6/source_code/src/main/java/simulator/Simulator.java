@@ -236,12 +236,12 @@ public class Simulator {
 		Object param = actionPair.getParam();
 		
 		System.out.print("d" + String.valueOf(id) + "," + act.toString().toLowerCase());
-		//String fuel = ",fuel " + String.valueOf(this.systemMap.getDroneById(id).getFuel());
+		String fuel = ",fuel " + String.valueOf(this.systemMap.getDroneById(id).getFuel());
         if(param != null) {
-        	System.out.println("," + param.toString().toLowerCase());
+        	System.out.println("," + param.toString().toLowerCase() + fuel);
         }
         else {
-        	System.out.println();
+        	System.out.println(fuel);
         }
 
         // display the simulation checks and/or responses

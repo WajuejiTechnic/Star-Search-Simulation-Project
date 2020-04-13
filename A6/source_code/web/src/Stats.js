@@ -5,7 +5,7 @@ function Stats (props) {
   var name = props.show ? "content" : "hide"
   console.log("show", props.show, name)
   var mapSize = props.mapWidth * props.mapHeight
-  var visibleSquares = props.squares.length
+  //var visibleSquares = props.squares.length
 
   var drones = props.drones.map(d => {
     var state = d["crashed"] ? "crashed":"alive"
@@ -51,14 +51,15 @@ function Stats (props) {
       <div className = {name}>
         <p> Mode: {props.mode} </p>
         <p> File: {props.fileName}</p>
+        <p> Width, Height: {props.mapWidth} , {props.mapHeight}</p>
         <p> Mapsize: {mapSize} </p>
-        <p> Width, Height: [{props.mapWidth}, {props.mapHeight}]</p>
         <p> MaxTurns: {props.maxTurns} </p>
         <p> CurrentTurns: {props.turns}</p>
-        {fuels()}
-        <p> VisiableSquares: {visibleSquares}</p>
+        <p> ExplorableSquares: {props.explorableSquares}</p>
         <p> ExploredSafeSquares: {props.safeSquares}</p>
+        <p> TotalDrones: {props.totalDrones}</p>
         <p> ActiveDrones: {props.drones.length}</p>
+        {fuels()}
         <table className="highlight">
         <thead>
           <tr>
@@ -74,6 +75,7 @@ function Stats (props) {
           {drones}
         </tbody>
       </table>
+     
       </div>
     </div>
     

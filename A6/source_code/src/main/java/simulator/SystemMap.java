@@ -239,6 +239,10 @@ public class SystemMap {
 		return drones;
 	}
 
+	public int getExplorableSquares(){
+		return this.getMapSize() - this.numOfSuns;
+	}
+
 	public int getWidth() {
 		return this.width;
 	}
