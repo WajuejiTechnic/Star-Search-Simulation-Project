@@ -49,6 +49,9 @@ class App extends Component{
     .then(res => res.json())
     .then(result => {
       //console.log(result)
+      if (typeof result["squares"] === "undefined"){
+        alert("Please refresh browser");
+      }
       this.setState({
         mapWidth: result["width"],
         mapHeight: result["height"],
@@ -77,6 +80,7 @@ class App extends Component{
       console.log("outputs = " + JSON.stringify(result["outputs"]))
       console.log("finalReport = " + JSON.stringify(result["finalReport"]))
     })
+    
     .catch(error => {
       console.log('err', error)
     })
@@ -129,6 +133,10 @@ class App extends Component{
     fetch("/nextAction")
     .then(res => res.json())
     .then(result => {
+      if (typeof result["squares"] === "undefined"){
+        alert("Please refresh browser")
+        return
+      }
       console.log(result)
       console.log("Fetch updates") 
       console.log("turns = " + JSON.stringify(result["turns"]))
@@ -170,6 +178,9 @@ class App extends Component{
     fetch("/nextActionByUser/?action=" + action+ "&param=" + param)
     .then(res => res.json())
     .then(result => {
+      if (typeof result["squares"] === "undefined"){
+        alert("Please refresh browser");
+      }
       console.log(result)
       console.log("Fetch updates by user") 
       console.log("turns = " + JSON.stringify(result["turns"]))

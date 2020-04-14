@@ -57,7 +57,7 @@ public class SimManager {
 	}
 
 	@GetMapping("/starSearch")
-	public String initialize(@RequestParam(value = "fileName") String fileName, 
+	synchronized public String initialize(@RequestParam(value = "fileName") String fileName, 
 								@RequestParam(value = "mode") String mode) throws Exception {
 		System.out.println("##############START with " + fileName + " & " + mode +" mode##############");
 		this.simulator = new Simulator(fileName);
@@ -120,7 +120,7 @@ public class SimManager {
 	}
 
 	@GetMapping("/getStrat")
-	public Object getStrat(){
+	synchronized public Object getStrat(){
 		Map<String, Object> states = new HashMap<>();
 		if (this.activeDrones.size() == 0) this.startNewTurn();
 		Drone drone = this.activeDrones.get(0);
@@ -131,7 +131,7 @@ public class SimManager {
 	// update state and display output if return 1
 	// final report if return 0
 	@GetMapping("/nextAction")
-	public String action() throws Exception {
+	synchronized public String action() throws Exception {
 		// check if a turn finished. If yes, start new turn
 		int rel = 1;
 		// System.out.println(this.activeDrones.size());
@@ -153,7 +153,7 @@ public class SimManager {
 	}
 
 	@GetMapping("/nextActionByUser")
-	public String actionByUser(@RequestParam(value = "action") String actionByUser, 
+	synchronized public String actionByUser(@RequestParam(value = "action") String actionByUser, 
 								@RequestParam(value = "param") String paramByUser) throws Exception {
 		// check if a turn finished. If yes, start new turn
 		Object param = null;
@@ -199,7 +199,7 @@ public class SimManager {
 	}
 
 	@GetMapping("/files")
-	public String getFiles() throws Exception  {
+	synchronized public String getFiles() throws Exception  {
 		Map<String, Object> states = new HashMap<>();
 		List<String> filesToResume = new ArrayList<>();
 		List<String> filesToInitial = new ArrayList<>();
@@ -219,7 +219,7 @@ public class SimManager {
 	}
 
 	@GetMapping("/stop")
-	public Object stop() {
+	synchronized public Object stop() {
 		Map<String, Object> states = new HashMap<>();
 		states.put("finalReport", this.simulator.displayFinalReport(turns));
 		return states;
