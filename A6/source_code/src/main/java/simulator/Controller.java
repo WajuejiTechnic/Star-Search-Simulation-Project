@@ -22,6 +22,21 @@ public class Controller {
 		this.simulator = simulator;
 		this.starMap = new StarMap(this.simulator.getSystemMap());
 	}
+
+	public int pullDroneForActionByUser(Drone drone, int turns, Boolean showState, Object actionByUser, Object paramByUser){
+		if(drone.getCrashed()) return -1;
+		this.action = actionByUser;
+		this.param = paramByUser; 
+		this.actionPair = new ActionPair(this.action, this.param);
+		String response = this.simulator.validateAction(drone, this.actionPair);
+		if (showState) this.simulator.renderRegion();
+		this.simulator.displayActionAndResponses(drone.getId(), this.actionPair, response);
+		this.output = this.simulator.displayOutput(drone.getId(), this.actionPair, response);
+		//System.out.println("print map .....");
+		//this.simulator.getSystemMap().print_map();
+		if(this.simulator.isGameOver()) return 0;
+		return 1;
+	}
 	
 	public int pullDroneForAction(Drone drone, int turns, Boolean showState) throws Exception {
 		if(drone.getCrashed()) return -1;

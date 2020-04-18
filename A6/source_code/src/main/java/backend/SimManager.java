@@ -26,16 +26,10 @@ public class SimManager {
 	private SystemMap systemMap;
 	private Controller controller;
 	private String fileName;
-	private int width;
-	private int height;
 	private int maxTurns;
 	private int turns;
 	private int[] fuels;
-	private int totalDrones;
-	private List<Square> squares;
-	private int safeSquares; 
-	private List<Drone> drones;
-	private List<Drone> allDrones;
+	private int explorableSquares;
 	private List<List<String>> outputs;
 	private Map<String, Integer> finalReport;
 
@@ -44,17 +38,18 @@ public class SimManager {
 
 	public String getInitialStates() throws Exception {
 		HashMap<String, Object> states = new HashMap<>();
-		states.put("width", this.width);
-		states.put("height", this.height);
+		states.put("width", this.systemMap.getWidth());
+		states.put("height", this.systemMap.getHeight());
 		states.put("maxTurns", this.maxTurns);
 		states.put("turns", this.turns);
 		states.put("fuels", this.fuels);
-		states.put("squares", this.squares);
-		states.put("safeSquares", this.safeSquares);
-		states.put("totalDrones", this.totalDrones);
-		states.put("drones", this.drones);
+		states.put("explorableSquares", this.explorableSquares);
+		states.put("squares", this.systemMap.getAllSquaresExploredOrScanned());
+		states.put("safeSquares", this.systemMap.getAllSafeSquaresExplored().size());
+		states.put("totalDrones", this.systemMap.getNumOfDrones());
+		states.put("drones", this.systemMap.getAllActiveDrones());
 		states.put("outputs", this.outputs);
-		states.put("finalReport", this.finalReport);
+		//states.put("finalReport", this.finalReport);
 
 		// states.put("disableStart", "yes");
 		// states.put("disabled", true);
@@ -62,42 +57,42 @@ public class SimManager {
 	}
 
 	@GetMapping("/starSearch")
-	public String initialize(@RequestParam(value = "fileName") String fileName, 
+	synchronized public String initialize(@RequestParam(value = "fileName") String fileName, 
 								@RequestParam(value = "mode") String mode) throws Exception {
-		System.out.println(fileName + " " + mode);
+		System.out.println("##############START with " + fileName + " & " + mode +" mode##############");
 		this.simulator = new Simulator(fileName);
 		this.systemMap = this.simulator.getSystemMap();
 		this.controller = this.simulator.getController();
 		this.fileName = fileName;
-		this.width = this.systemMap.getWidth();
-		this.height = this.systemMap.getHeight();
 		this.maxTurns = this.systemMap.getTurnLimit();
 		this.turns = 0;
-		this.squares = this.systemMap.getAllSquaresExploredOrScanned();
-		this.safeSquares = this.systemMap.getAllSafeSquaresExplored().size();
+		this.explorableSquares = this.systemMap.getExplorableSquares();
 		this.fuels = this.systemMap.getFuels();
-		this.totalDrones = this.systemMap.getNumOfDrones();
-		this.drones = this.systemMap.getAllActiveDrones();
 		this.outputs = new ArrayList<List<String>>();
 		this.finalReport = new HashMap<>();
 
 		this.activeDrones = new ArrayList<>();
 		if(mode.equals("resume")) {
-			this.loadHistory(fileName);
-			this.updateSquares(this.squares, this.allDrones);
+			History hist = this.loadHistory(fileName);
+			this.updateSquares(hist.getSquares(), hist.getAllDrones());
+			this.turns = hist.getTurns();
+			this.outputs = hist.getOutputs();
+			this.finalReport = hist.getFinalReport();
+
+			if(hist.getNumOfActiveDrones() != 0){
+				int totalActiveDrones = this.systemMap.getAllActiveDrones().size();
+				int index = totalActiveDrones - hist.getNumOfActiveDrones();
+				this.activeDrones = this.systemMap.getAllActiveDrones().subList(index, totalActiveDrones);
+			}
 		}
 
-		System.out.println(" start");
 		// System.out.println("isEmpty? " + this.finalReport.isEmpty());
 		return this.getInitialStates();
 	}
 
-	public int startNewTurn() {
-		if (this.simulator.terminate(turns))
-			return -1;
+	public void startNewTurn() {
 		this.activeDrones = this.systemMap.getAllActiveDrones();
 		this.turns += 1;
-		return 0;
 	}
 
 	public String updateState(int rel) throws Exception {
@@ -105,15 +100,12 @@ public class SimManager {
 		List<String> output = this.controller.getOutput();
 
 		this.outputs.add(output);
-		this.squares = this.systemMap.getAllSquaresExploredOrScanned();
-		this.drones = this.systemMap.getAllActiveDrones();
-		this.safeSquares = this.systemMap.getAllSafeSquaresExplored().size();
-		this.allDrones = this.systemMap.getAllDrones();
+		//this.allDrones = this.systemMap.getAllDrones();
 
 		states.put("turns", this.turns);
-		states.put("squares", this.squares);
-		states.put("safeSquares", this.safeSquares);
-		states.put("drones", this.drones);
+		states.put("squares", this.systemMap.getAllSquaresExploredOrScanned());
+		states.put("safeSquares", this.systemMap.getAllSafeSquaresExplored().size());
+		states.put("drones", this.systemMap.getAllActiveDrones());
 		states.put("outputs", this.outputs);
 
 		if (rel == 0) {
@@ -127,17 +119,22 @@ public class SimManager {
 		return mapper.writeValueAsString(states);
 	}
 
+	@GetMapping("/getStrat")
+	synchronized public Object getStrat(){
+		Map<String, Object> states = new HashMap<>();
+		if (this.activeDrones.size() == 0) this.startNewTurn();
+		Drone drone = this.activeDrones.get(0);
+		states.put("strat", drone.getStrategy());
+		return states;
+	}
+
 	// update state and display output if return 1
 	// final report if return 0
 	@GetMapping("/nextAction")
-	public String action() throws Exception {
+	synchronized public String action() throws Exception {
 		// check if a turn finished. If yes, start new turn
 		int rel = 1;
 		// System.out.println(this.activeDrones.size());
-		if (this.activeDrones.size() == 0) {
-			if (this.startNewTurn() == -1)
-				rel = 0;
-		}
 		Drone drone = this.activeDrones.get(0);
 		//System.out.println(
 		//		"before remove:" + this.turns + " " + this.activeDrones + " " + this.activeDrones.size() + " " + drone);
@@ -155,40 +152,58 @@ public class SimManager {
 		return this.updateState(rel);
 	}
 
+	@GetMapping("/nextActionByUser")
+	synchronized public String actionByUser(@RequestParam(value = "action") String actionByUser, 
+								@RequestParam(value = "param") String paramByUser) throws Exception {
+		// check if a turn finished. If yes, start new turn
+		Object param = null;
+		if(actionByUser.equals("steer")) param = paramByUser;
+		if(actionByUser.equals("thrust")) param = Integer.parseInt(paramByUser);
+		//System.out.println("actionPair=" + actionByUser + " " + paramByUser);
+		
+		int rel = 1;
+		// System.out.println(this.activeDrones.size());
+		Drone drone = this.activeDrones.get(0);
+		//System.out.println(
+		//		"before remove:" + this.turns + " " + this.activeDrones + " " + this.activeDrones.size() + " " + drone);
+		this.activeDrones.remove(0);
+		//System.out.println("after remove: " + this.activeDrones + " " + this.activeDrones.size() + " " + drone);
+		rel = this.controller.pullDroneForActionByUser(drone, turns, false, actionByUser, param);
+
+		if (this.activeDrones.size() == 0 && this.turns == this.maxTurns)
+			rel = 0;
+		// continue pull next drone to action if rel == -1
+		if (rel == -1) {
+			this.action();
+		}
+		// final report if rel = 0, otherwise only update state and display output
+		return this.updateState(rel);
+	}
+
 	public void saveHistory() throws Exception {
 		History hist = new History();
 		hist.setTurns(this.turns);
-		hist.setSquares(this.squares);
-		hist.setSafeSquares(this.safeSquares);
-		hist.setTotalDrones(this.totalDrones);
-		hist.setDrones(this.drones);
-		hist.setAllDrones(this.allDrones);
+		hist.setSquares(this.systemMap.getAllSquaresExploredOrScanned());
+		hist.setAllDrones(this.systemMap.getAllDrones());
 		hist.setOutputs(this.outputs);
+		hist.setNumOfActiveDrones(this.activeDrones.size());
 		hist.setFinalReport(this.finalReport);
 		//System.out.println("save finalReport" +  this.finalReport);
 		String fl = this.fileName + ".json";
 		mapper.writeValue(new File(fl), hist);
 	}
 	
-	public void loadHistory (String fileName) throws Exception {
+	public History loadHistory (String fileName) throws Exception {
 		String fl = fileName + ".json";
-		History hist = mapper.readValue(new File(fl), History.class);
-		this.turns = hist.getTurns();
-		this.squares = hist.getSquares();
-		this.safeSquares = hist.getSafeSquares();
-		this.totalDrones = hist.getTotalDrones();
-		this.drones = hist.getDrones();
-		this.allDrones = hist.getAllDrones();
-		this.outputs = hist.getOutputs();
-		this.finalReport = hist.getFinalReport();
+		return mapper.readValue(new File(fl), History.class);
 	}
 
 	@GetMapping("/files")
-	public String getFiles() throws Exception  {
+	synchronized public String getFiles() throws Exception  {
 		Map<String, Object> states = new HashMap<>();
 		List<String> filesToResume = new ArrayList<>();
 		List<String> filesToInitial = new ArrayList<>();
-		for (int i = 0; i <= 30; i++){
+		for (int i = 0; i <= 31; i++){
 			String fl = "scenario" + String.valueOf(i) + ".csv";
 			//System.out.println("fl: " + fl);
 			File tmpFile = new File(fl+".json");
@@ -204,10 +219,9 @@ public class SimManager {
 	}
 
 	@GetMapping("/stop")
-	public Object stop() {
+	synchronized public Object stop() {
 		Map<String, Object> states = new HashMap<>();
-		this.finalReport = this.simulator.displayFinalReport(turns);
-		states.put("finalReport", this.finalReport);
+		states.put("finalReport", this.simulator.displayFinalReport(turns));
 		return states;
 	}
 

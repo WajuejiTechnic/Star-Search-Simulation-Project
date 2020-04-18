@@ -78,7 +78,6 @@ body {
   bottom: 0%;
   width: 118vmin;
   height: 10vmin;
-  margin-right: 10px;
 }
 
 .mleft-30{
@@ -96,7 +95,7 @@ body {
 .input-box{
   position: fixed;
   bottom: 0%;
-  left: 10;
+  left: 10%;
   z-index: 9000;
   width: 28vmin;
 }
@@ -157,7 +156,7 @@ body {
 .content{
   margin-left: 5px;
   margin-top: 10px;
-  height: 77vmin;
+  height: 75vmin;
   overflow-y: scroll;
 }
 
@@ -192,7 +191,7 @@ p{
   font-weight: 400 !important;
 }
 
-.modal{
+.m{
   width: 70vmin;
   max-height: 30vmin;
 }
@@ -200,4 +199,28 @@ p{
 h5{
 line-height: 10%;
 margin: 16px;
+}
+
+.action-go{
+  position: fixed;
+  bottom: 9%;
+  right: 1%;
+  z-index: 9000;
+}
+
+.action{
+  width: 28vmin;
+}
+
+.mtop-5{
+  margin-top: 5px;
+}
+
+.middle{
+  position: fixed;
+  bottom: 50%;
+  left: 37%;
+  width: 50vmin;
+  max-height: 30vmin;
+  z-index: 9000;
 }
