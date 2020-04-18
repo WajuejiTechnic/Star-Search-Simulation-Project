@@ -37,13 +37,13 @@ Once backend build and run successfully, there are two ways to start GUI:
 
 
 Fuel Test
-1. To regenerate star_search.jar (already generated under source_code ), run the command under source_code :
+1. To regenerate star_search.jar (already generated under source_code), run the command under source_code :
    gradle shadowjar
 
 2. To save output to a scenario_results file, run the command:
    java -cp star_search.jar simulator.Main scenario<N>.csv > scenario<N>_results.csv
 
-3. Test one file as following (only test scenario files 2) :
+3. Test one file as following (only test scenario file 2) :
    java -jar fuel_test.jar 2 2
    
 4. Test mulitple files as following (only test scenario files 3 to 5) :
