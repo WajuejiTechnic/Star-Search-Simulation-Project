@@ -9,7 +9,8 @@ Start Web Application
 
 3. Open terminal and go to /source_code
 
-4. Run the command below to build and run file in the current directory: gradle run
+4. Run the command below to build and run file in the current directory: 
+   gradle run
 
 5. Build and run successfully if you see the information below：
    Tomcat started on port(s): 8080
