@@ -14,7 +14,7 @@ Start Web Application
 
 5. Build and run successfully if you see the information below：
    Tomcat started on port(s): 8080
-   <========----> 75% EXECUTING [3M 26S]
+   <========----> 75% EXECUTING [3m 26s]
    > :run
 
 Once backend build and run successfully, there are two ways to start GUI:
