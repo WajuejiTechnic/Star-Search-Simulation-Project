@@ -1,8 +1,7 @@
-# CS6310_project
-this is a project for CS6310 Assingment 6
+# Star Search Simulation Project
 
 ## Testing Fuel
-1. To generate star_search.jar file - under A6/source_code, run the command:
+1. To generate star_search.jar file - under code/source_code, run the command:
    
    gradle shadowjar
    
@@ -18,7 +17,7 @@ this is a project for CS6310 Assingment 6
    
    done
 
-3. to generate the fuel_test.jar file - under A6/source_code/src/test/java, run the command:
+3. to generate the fuel_test.jar file - under code/source_code/src/test/java, run the command:
    
    javac *.java
    
@@ -32,15 +31,15 @@ this is a project for CS6310 Assingment 6
 ## Start GUI
 1. Download virtual machine via Google Drive Link
 
-2. Download CS6310_project from our group gatech Github and store it in VM
+2. Download repo Github and store it in VM
 
-3. Open terminal and go to /CS6310_project/A6/source_code,R. un the command below to build and run file in the current directory:
+3. Open terminal and go to /code/source_code,R. un the command below to build and run file in the current directory:
    
    gradle run
    
 4. Open Visual Studio Code, Click File -> Add folder to Workspace and select the folder
    
-   /CS6310_project/A6/source_code
+   /code/source_code
    
    Then click Terminal -> New Terminal, cd web to go to the folder web
    

@@ -1,0 +1,55 @@
+plugins {
+	id 'java'
+	id 'application'
+	id 'org.springframework.boot' version '1.5.22.RELEASE'
+	id 'io.spring.dependency-management' version "1.0.8.RELEASE"
+	id "com.github.johnrengelman.shadow" version "4.0.4"
+}
+
+defaultTasks 'clean'
+
+compileJava.options.encoding = 'UTF-8'
+group = 'cs6310-group10'
+version = '1.0.0'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+buildDir = 'build'
+libsDirName='../'
+
+mainClassName='backend.Backend'
+//mainClassName='simulator.Main'
+
+repositories {
+	jcenter()
+}
+
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	testImplementation('junit:junit:4.12')
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src/main/java']
+		}
+		resources {
+			srcDirs = ['src/main/resources']
+		}
+	}
+
+	test {
+		java {
+			srcDirs = ['src/test/java']
+		}
+		resources {
+			srcDirs = ['src/test/resources']
+		}
+	}
+}
+
+shadowJar {
+	classifier = "fat"
+	archiveName = "star_search.jar"
+	from(project.sourceSets.main.output)
+}
